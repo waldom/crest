@@ -248,6 +248,7 @@ Shader "Crest/Ocean"
 
 			#include "UnityCG.cginc"
 			#include "Lighting.cginc"
+			#include "Assets/Packages/Enviro - Sky and Weather/Core/Resources/Shaders/Core/EnviroFogCore.cginc"
 
 			struct Attributes
 			{
@@ -556,6 +557,7 @@ Shader "Crest/Ocean"
 				{
 					// Above water - do atmospheric fog. If you are using a third party sky package such as Azure, replace this with their stuff!
 					UNITY_APPLY_FOG(input.fogCoord, col);
+					col.rgb = TransparentFog(half4(col, 0), input.worldPos.xyz, uvDepth, sceneZ);
 				}
 				else
 				{
